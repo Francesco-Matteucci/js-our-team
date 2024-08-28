@@ -61,3 +61,9 @@ const teamMembers = [
     }
 ];
 
+//Stampo in console le informazioni di ogni membro del team
+for (const member of teamMembers) {
+    console.log(`Nome: ${member.nome}, Ruolo: ${member.ruolo}, Foto: ${member.foto}`);
+}
+
+
