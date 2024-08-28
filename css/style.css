@@ -1,10 +1,135 @@
-#team-container .card {
-    flex: 0 1 calc(33.333% - 1rem);
-    margin: 0.5rem;
+/* Custom Properties */
+:root {
+    --font-family: Arial, sans-serif;
+    --main-color: #b6b6b6;
+    --secondary-color: #777;
+    --background-color: rgba(0, 0, 0, 0.5);
+    --background-color-hover: rgba(0, 0, 0, 0.7);
+    --shadow-color: rgba(0, 0, 0, 0.23);
+    --font-size-heading: 30px;
+    --font-size-subheading: 28px;
+    --font-size-paragraph: 16px;
+    --font-size-small: 14px;
+    --carousel-control-size: 50px;
+    --carousel-control-icon-size: 24px;
+    --carousel-control-padding: 10px;
+    --img-size: 150px;
+    --margin-bottom-heading: 20px;
+    --margin-top-subheading: 15px;
+    --margin-bottom-img: 20px;
 }
 
-#team-container .card img {
-    height: auto;
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(../img/bg-team.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.heading {
+    text-align: center;
+    color: var(--main-color);
+    font-size: var(--font-size-heading);
+    font-weight: 700;
+    margin-bottom: var(--margin-bottom-heading);
+}
+
+.team-carousel {
+    position: relative;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
     width: 100%;
+}
+
+.carousel-item {
+    flex: 1 0 100%;
+    display: none;
+    text-align: center;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: var(--carousel-control-icon-size);
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: var(--carousel-control-padding);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--carousel-control-size);
+    height: var(--carousel-control-size);
+    background-color: var(--background-color);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev {
+    left: -60px;
+}
+
+.carousel-control-next {
+    right: -60px;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: var(--background-color-hover);
+}
+
+.carousel-control-prev i,
+.carousel-control-next i {
+    font-size: var(--carousel-control-icon-size);
+    color: white;
+}
+
+.team-slide img {
+    width: var(--img-size);
+    height: var(--img-size);
+    border-radius: 50%;
+    margin: 0 auto var(--margin-bottom-img);
+    box-shadow: -6px 6px 6px var(--shadow-color);
     object-fit: cover;
+}
+
+.team-slide p {
+    font-size: var(--font-size-paragraph);
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.team-slide h4 {
+    margin-top: var(--margin-top-subheading);
+    font-size: var(--font-size-subheading);
+    color: var(--main-color);
+}
+
+.team-slide small {
+    font-size: var(--font-size-small);
+    color: var(--secondary-color);
+    font-style: italic;
 }

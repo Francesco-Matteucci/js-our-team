@@ -67,44 +67,56 @@ for (const member of teamMembers) {
 }
 
 
-//Recupero l'elemento dal DOM
-const teamContainer = document.getElementById('team-container');
+// Recupero l'elemento dal DOM
+const carouselInner = document.querySelector('.carousel-inner');
+let currentIndex = 0;
 
-//Stampo le informazioni di ogni membro del team, sul DOM, inserendo l'effettiva immagine, in delle card
-for (const member of teamMembers) {
+// Genero le slide con un ciclo
+for (let i = 0; i < teamMembers.length; i++) {
+    const member = teamMembers[i];
 
-    // Creo il div per la card
-    const card = document.createElement('div');
-    card.classList.add('card', 'mb-3');
+    const carouselItem = document.createElement('div');
+    carouselItem.classList.add('carousel-item');
+    if (i === 0) {
+        carouselItem.classList.add('active');
+    }
 
-    // Creo l'elemento immagine per la card
-    const memberImage = document.createElement('img');
-    memberImage.src = `img/${member.foto}`;
-    memberImage.alt = `${member.nome}`;
-    memberImage.classList.add('card-img-top');
+    const teamSlide = `
+        <div class="team-slide">
+            <img src="img/${member.foto}" alt="${member.nome}">
+            <h4>${member.nome}</h4>
+            <p>${member.ruolo}</p>
+            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+        </div>
+    `;
 
-    // Creo il div per il corpo della card
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body', 'text-center');
-
-    // Creo l'elemento per il nome
-    const cardText = document.createElement('h5');
-    cardText.classList.add('card-title');
-    cardText.textContent = member.nome;
-
-    // Creo l'elemento per il ruolo 
-    const cardRole = document.createElement('p');
-    cardRole.classList.add('card-text');
-    cardRole.textContent = member.ruolo;
-
-    // Appendo il testo e il ruolo al body della card
-    cardBody.appendChild(cardText);
-    cardBody.appendChild(cardRole);
-
-    // Appendo l'immagine e il corpo della card al div card
-    card.appendChild(memberImage);
-    card.appendChild(cardBody);
-
-    // Stampo nel DOM la card sul container principale
-    teamContainer.appendChild(card);
+    carouselItem.innerHTML = teamSlide;
+    carouselInner.appendChild(carouselItem);
 }
+
+//! Gestione del carousel
+
+//Recupero gli elementi dal DOM
+const items = document.querySelectorAll('.carousel-item');
+const nextBtn = document.querySelector('.carousel-control-next');
+const prevBtn = document.querySelector('.carousel-control-prev');
+
+// Creo una funzione per mostrare le slide..
+function showSlide(index) {
+
+    //..con un ciclo for of metto o tolgo la classe active
+    for (const item of items) {
+        item.classList.remove('active');
+    }
+    items[index].classList.add('active');
+}
+//gestisco con un event click i bottoni, per lo spostamento tra le varie slide
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % items.length;
+    showSlide(currentIndex);
+});
+
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    showSlide(currentIndex);
+});
