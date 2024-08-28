@@ -1,0 +1,10 @@
+#team-container .card {
+    flex: 0 1 calc(33.333% - 1rem);
+    margin: 0.5rem;
+}
+
+#team-container .card img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}

@@ -70,10 +70,41 @@ for (const member of teamMembers) {
 //Recupero l'elemento dal DOM
 const teamContainer = document.getElementById('team-container');
 
-//Stampo le informazioni di ogni membro del team, sul DOM
+//Stampo le informazioni di ogni membro del team, sul DOM, inserendo l'effettiva immagine, in delle card
 for (const member of teamMembers) {
-    const memberInfo = document.createElement('div');
-    memberInfo.classList.add('mb-3');
-    memberInfo.textContent = `Nome: ${member.nome}, Ruolo: ${member.ruolo}, Foto: ${member.foto}`;
-    teamContainer.appendChild(memberInfo);
+
+    // Creo il div per la card
+    const card = document.createElement('div');
+    card.classList.add('card', 'mb-3');
+
+    // Creo l'elemento immagine per la card
+    const memberImage = document.createElement('img');
+    memberImage.src = `img/${member.foto}`;
+    memberImage.alt = `${member.nome}`;
+    memberImage.classList.add('card-img-top');
+
+    // Creo il div per il corpo della card
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body', 'text-center');
+
+    // Creo l'elemento per il nome
+    const cardText = document.createElement('h5');
+    cardText.classList.add('card-title');
+    cardText.textContent = member.nome;
+
+    // Creo l'elemento per il ruolo 
+    const cardRole = document.createElement('p');
+    cardRole.classList.add('card-text');
+    cardRole.textContent = member.ruolo;
+
+    // Appendo il testo e il ruolo al body della card
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(cardRole);
+
+    // Appendo l'immagine e il corpo della card al div card
+    card.appendChild(memberImage);
+    card.appendChild(cardBody);
+
+    // Stampo nel DOM la card sul container principale
+    teamContainer.appendChild(card);
 }
