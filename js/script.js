@@ -67,3 +67,13 @@ for (const member of teamMembers) {
 }
 
 
+//Recupero l'elemento dal DOM
+const teamContainer = document.getElementById('team-container');
+
+//Stampo le informazioni di ogni membro del team, sul DOM
+for (const member of teamMembers) {
+    const memberInfo = document.createElement('div');
+    memberInfo.classList.add('mb-3');
+    memberInfo.textContent = `Nome: ${member.nome}, Ruolo: ${member.ruolo}, Foto: ${member.foto}`;
+    teamContainer.appendChild(memberInfo);
+}
