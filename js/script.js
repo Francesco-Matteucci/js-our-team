@@ -61,17 +61,16 @@ const teamMembers = [
     }
 ];
 
-//Stampo in console le informazioni di ogni membro del team
+// Stampo in console le informazioni di ogni membro del team
 for (const member of teamMembers) {
     console.log(`Nome: ${member.nome}, Ruolo: ${member.ruolo}, Foto: ${member.foto}`);
 }
-
 
 // Recupero l'elemento dal DOM
 const carouselInner = document.querySelector('.carousel-inner');
 let currentIndex = 0;
 
-// Genero le slide con un ciclo
+// Genero le slide con un ciclo, creando gli elementi DOM direttamente
 for (let i = 0; i < teamMembers.length; i++) {
     const member = teamMembers[i];
 
@@ -81,22 +80,38 @@ for (let i = 0; i < teamMembers.length; i++) {
         carouselItem.classList.add('active');
     }
 
-    const teamSlide = `
-        <div class="team-slide">
-            <img src="img/${member.foto}" alt="${member.nome}">
-            <h4>${member.nome}</h4>
-            <p>${member.ruolo}</p>
-            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-        </div>
-    `;
+    const teamSlide = document.createElement('div');
+    teamSlide.classList.add('team-slide');
 
-    carouselItem.innerHTML = teamSlide;
+    const img = document.createElement('img');
+    img.src = `img/${member.foto}`;
+    img.alt = member.nome;
+
+    const h4 = document.createElement('h4');
+    h4.textContent = member.nome;
+
+    const p = document.createElement('p');
+    p.textContent = member.ruolo;
+
+    const small = document.createElement('small');
+    small.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum delectus fuga recusandae dolorem illum pariatur praesentium, eaque libero dignissimos ad eius fugiat doloribus dolores mollitia aperiam culpa repellendus.";
+
+    // Appendo tutti gli elementi al teamSlide
+    teamSlide.appendChild(img);
+    teamSlide.appendChild(h4);
+    teamSlide.appendChild(p);
+    teamSlide.appendChild(small);
+
+    // Appendo il teamSlide alla carouselItem
+    carouselItem.appendChild(teamSlide);
+
+    // Appendo la carouselItem alla carouselInner
     carouselInner.appendChild(carouselItem);
 }
 
 //! Gestione del carousel
 
-//Recupero gli elementi dal DOM
+// Recupero gli elementi dal DOM
 const items = document.querySelectorAll('.carousel-item');
 const nextBtn = document.querySelector('.carousel-control-next');
 const prevBtn = document.querySelector('.carousel-control-prev');
@@ -104,13 +119,14 @@ const prevBtn = document.querySelector('.carousel-control-prev');
 // Creo una funzione per mostrare le slide..
 function showSlide(index) {
 
-    //..con un ciclo for of metto o tolgo la classe active
+    //..con un ciclo for of per dare o togliere la classe active
     for (const item of items) {
         item.classList.remove('active');
     }
     items[index].classList.add('active');
 }
-//gestisco con un event click i bottoni, per lo spostamento tra le varie slide
+
+// Gestisco con un event click i bottoni, per lo spostamento tra le varie slide
 nextBtn.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % items.length;
     showSlide(currentIndex);
